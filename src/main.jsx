@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Home from './pages/Home'
 import App from './pages/App'
 
@@ -10,5 +11,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/" element={<Home />} />
       <Route path="/diagnose" element={<App />} />
     </Routes>
+    <SpeedInsights />
   </BrowserRouter>
 )
