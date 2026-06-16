@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         'X-Title': 'Plant Doctor'
       },
       body: JSON.stringify({
-        model: "nex-agi/nex-n2-pro:free",
+        model: "google/gemma-4-31b-it:free",
         messages: [
           { role: "system", content: "You are an expert botanist and plant pathologist. Diagnose plant issues from photos and/or descriptions. Always respond with valid JSON only, no markdown." },
           { role: "user", content: userContent }
