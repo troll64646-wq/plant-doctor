@@ -12,6 +12,14 @@ const steps = [
   { n: "03", title: "Get the fix", desc: "Receive a diagnosis, cause, and step-by-step treatment plan." },
 ]
 
+const stats = [
+  { value: "10K+", label: "Plants diagnosed" },
+  { value: "94%", label: "Accuracy rate" },
+  { value: "30s", label: "Average diagnosis time" },
+]
+
+const conditions = ["Root rot", "Overwatering", "Nutrient deficiency", "Leaf blight", "Spider mites", "Sunburn", "Fungal infection", "Underwatering"]
+
 export default function Home() {
   const navigate = useNavigate()
 
@@ -23,13 +31,18 @@ export default function Home() {
         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "#E8F5E2", fontStyle: "italic" }}>
           Plant Doctor
         </div>
-        <button onClick={() => navigate('/diagnose')} style={{
-          background: "#7FD67A", color: "#0A0F0A", border: "none",
-          borderRadius: 8, padding: "9px 20px", fontSize: 14, fontWeight: 600,
-          cursor: "pointer", fontFamily: "inherit"
-        }}>
-          Try for free
-        </button>
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <button onClick={() => navigate('/pricing')} style={{ background: "none", border: "none", color: "#6A9A62", fontSize: 14, cursor: "pointer", fontFamily: "inherit" }}>
+            Pricing
+          </button>
+          <button onClick={() => navigate('/login')} style={{
+            background: "#7FD67A", color: "#0A0F0A", border: "none",
+            borderRadius: 8, padding: "9px 20px", fontSize: 14, fontWeight: 600,
+            cursor: "pointer", fontFamily: "inherit"
+          }}>
+            Get started
+          </button>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -49,7 +62,7 @@ export default function Home() {
           Upload a photo of your sick plant and get an instant diagnosis — what's wrong, why it happened, and exactly how to fix it.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <button onClick={() => navigate('/diagnose')} style={{
+          <button onClick={() => navigate('/login')} style={{
             background: "#7FD67A", color: "#0A0F0A", border: "none",
             borderRadius: 10, padding: "15px 32px", fontSize: 16, fontWeight: 600,
             cursor: "pointer", fontFamily: "inherit", letterSpacing: "-0.01em"
@@ -57,13 +70,25 @@ export default function Home() {
             Diagnose my plant →
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#4A6B44", fontSize: 14 }}>
-            <span style={{ color: "#7FD67A" }}>✓</span> No sign up required
+            <span style={{ color: "#7FD67A" }}>✓</span> Free to sign up
           </div>
         </div>
       </div>
 
+      {/* Stats bar */}
+      <div style={{ maxWidth: 800, margin: "0 auto 0", padding: "0 24px" }}>
+        <div style={{ background: "#111811", border: "1px solid #1A2A1A", borderRadius: 14, padding: "24px 32px", display: "flex", justifyContent: "space-around", flexWrap: "wrap", gap: 16 }}>
+          {stats.map(s => (
+            <div key={s.label} style={{ textAlign: "center" }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#7FD67A", fontWeight: 700 }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: "#4A6B44", marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Divider */}
-      <div style={{ borderTop: "1px solid #111811", maxWidth: 800, margin: "0 auto" }} />
+      <div style={{ borderTop: "1px solid #111811", maxWidth: 800, margin: "48px auto 0" }} />
 
       {/* How it works */}
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "72px 24px" }}>
@@ -78,6 +103,26 @@ export default function Home() {
               </div>
               <div style={{ fontSize: 16, color: "#E8F5E2", fontWeight: 600, marginBottom: 8 }}>{s.title}</div>
               <div style={{ fontSize: 14, color: "#6A9A62", lineHeight: 1.6 }}>{s.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div style={{ borderTop: "1px solid #111811", maxWidth: 800, margin: "0 auto" }} />
+
+      {/* Conditions ticker */}
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 24px" }}>
+        <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "#4A6B44", textTransform: "uppercase", marginBottom: 24, textAlign: "center" }}>
+          Conditions we detect
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
+          {conditions.map(c => (
+            <div key={c} style={{
+              background: "#111811", border: "1px solid #1A2A1A", borderRadius: 20,
+              padding: "6px 16px", fontSize: 13, color: "#8AAE82"
+            }}>
+              {c}
             </div>
           ))}
         </div>
@@ -110,8 +155,8 @@ export default function Home() {
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(28px, 5vw, 44px)", fontWeight: 400, color: "#E8F5E2", marginBottom: 16 }}>
           Is your plant trying to survive?
         </h2>
-        <p style={{ color: "#6A9A62", fontSize: 15, marginBottom: 32 }}>Find out in seconds. No account needed.</p>
-        <button onClick={() => navigate('/diagnose')} style={{
+        <p style={{ color: "#6A9A62", fontSize: 15, marginBottom: 32 }}>Find out in seconds. 3 free diagnoses to start.</p>
+        <button onClick={() => navigate('/login')} style={{
           background: "#7FD67A", color: "#0A0F0A", border: "none",
           borderRadius: 10, padding: "15px 36px", fontSize: 16, fontWeight: 600,
           cursor: "pointer", fontFamily: "inherit"
