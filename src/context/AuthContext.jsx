@@ -21,18 +21,12 @@ export function AuthProvider({ children }) {
     const snap = await getDoc(ref);
     if (!snap.exists()) {
       const now = new Date();
-      const newData = {
-        tier: "free",
-        diagnosesUsed: 0,
-        resetMonth: now.getMonth(),
-        resetYear: now.getFullYear(),
-      };
+      const newData = { tier: "free", diagnosesUsed: 0, resetMonth: now.getMonth(), resetYear: now.getFullYear() };
       await setDoc(ref, newData);
       setUserData(newData);
     } else {
       const data = snap.data();
       const now = new Date();
-      // Reset monthly count if new month
       if (data.resetMonth !== now.getMonth() || data.resetYear !== now.getFullYear()) {
         const reset = { ...data, diagnosesUsed: 0, resetMonth: now.getMonth(), resetYear: now.getFullYear() };
         await setDoc(ref, reset);
@@ -44,12 +38,13 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    return onAuthStateChanged(auth, async (u) => {
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) await fetchUserData(u.uid);
       else setUserData(null);
       setLoading(false);
     });
+    return unsubscribe;
   }, []);
 
   const refreshUserData = () => user && fetchUserData(user.uid);
