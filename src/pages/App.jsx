@@ -74,15 +74,20 @@ export default function PlantDoctor() {
       const parsed = await response.json();
       if (parsed.error) throw new Error(parsed.error);
 
-      // Save to Firestore history
-      const ref = await addDoc(collection(db, "users", user.uid, "diagnoses"), {
-        ...parsed, plantName: plantName || "Unknown", timestamp: serverTimestamp()
-      });
-      setDiagnosisId(ref.id);
-
-      await updateDoc(doc(db, "users", user.uid), { diagnosesUsed: increment(1) });
-      await refreshUserData();
+      // Show result immediately
       setResult(parsed);
+
+      // Save to Firestore separately — don't block result on this
+      try {
+        const ref = await addDoc(collection(db, "users", user.uid, "diagnoses"), {
+          ...parsed, plantName: plantName || "Unknown", timestamp: serverTimestamp()
+        });
+        setDiagnosisId(ref.id);
+        await updateDoc(doc(db, "users", user.uid), { diagnosesUsed: increment(1) });
+        await refreshUserData();
+      } catch (fsErr) {
+        console.error("Firestore save failed:", fsErr);
+      }
     } catch (e) {
       setError("Diagnosis failed. Please try again.");
     }
