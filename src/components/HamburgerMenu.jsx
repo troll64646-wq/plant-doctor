@@ -61,18 +61,22 @@ export default function HamburgerMenu() {
         {/* Nav */}
         <nav style={{ flex: 1, padding: "12px 0", overflowY: "auto" }}>
           {[
-            { label: "🌿  Diagnose", path: "/diagnose" },
-            { label: "📋  History", path: "/history" },
-            { label: "🪴  My Plants", path: "/plants" },
-            { label: "💳  Pricing", path: "/pricing" },
-            { label: "🏠  Home", path: "/" },
-          ].map(({ label, path }) => (
+            { label: "🌿  Diagnose", path: "/diagnose", pro: false },
+            { label: "📋  History", path: "/history", pro: true },
+            { label: "🪴  My Plants", path: "/plants", pro: true },
+            { label: "💳  Pricing", path: "/pricing", pro: false },
+            { label: "🏠  Home", path: "/", pro: false },
+          ].map(({ label, path, pro }) => (
             <button key={path} onClick={() => go(path)} style={{
               width: "100%", background: "none", border: "none",
               color: theme.textMuted, fontSize: 15, padding: "12px 20px",
               textAlign: "left", cursor: "pointer", fontFamily: "inherit",
+              display: "flex", justifyContent: "space-between", alignItems: "center"
             }}>
-              {label}
+              <span>{label}</span>
+              {pro && tier === "free" && (
+                <span style={{ fontSize: 10, background: "rgba(255,209,102,0.15)", color: theme.warning, border: `1px solid ${theme.warning}`, borderRadius: 4, padding: "2px 6px", fontWeight: 600, letterSpacing: "0.05em" }}>PRO</span>
+              )}
             </button>
           ))}
         </nav>
