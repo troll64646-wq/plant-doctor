@@ -67,6 +67,23 @@ export default function Plants() {
     </div>
   );
 
+  const tier = userData?.tier || "free";
+  if (tier === "free") return (
+    <div style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: `1px solid ${theme.border}`, position: "sticky", top: 0, background: theme.bg, zIndex: 10 }}>
+        <HamburgerMenu />
+        <div style={{ fontFamily: "'Georgia', serif", fontSize: 18, color: theme.text, fontStyle: "italic" }}>My Plants</div>
+        <div style={{ width: 40 }} />
+      </nav>
+      <div style={{ maxWidth: 560, margin: "80px auto", padding: "0 24px", textAlign: "center" }}>
+        <div style={{ fontSize: 40, marginBottom: 16 }}>🪴</div>
+        <div style={{ fontFamily: "'Georgia', serif", fontSize: 22, color: theme.text, marginBottom: 12 }}>Pro feature</div>
+        <div style={{ fontSize: 15, color: theme.textMuted, marginBottom: 28, lineHeight: 1.7 }}>Plant profiles and watering reminders are available on Pro and Expert plans. Upgrade to track all your plants.</div>
+        <button onClick={() => navigate("/pricing")} style={{ background: theme.accent, color: theme.accentText, border: "none", borderRadius: 8, padding: "13px 32px", fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>See plans →</button>
+      </div>
+    </div>
+  );
+
   return (
     <div style={{ minHeight: "100vh", background: theme.bg, color: theme.text, fontFamily: "'Inter', system-ui, sans-serif" }}>
       <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: `1px solid ${theme.border}`, position: "sticky", top: 0, background: theme.bg, zIndex: 10 }}>

@@ -283,25 +283,34 @@ export default function PlantDoctor() {
               ))}
             </div>
 
-            {/* Follow-up chat */}
+            {/* Follow-up chat — Pro+ only */}
             <div style={{ borderTop: `1px solid ${theme.border}`, paddingTop: 16 }}>
               <div style={{ fontSize: 10, letterSpacing: "0.15em", color: theme.textDim, textTransform: "uppercase", marginBottom: 12 }}>Ask a follow-up</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-                {chatMessages.map((m, i) => (
-                  <div key={i} style={{
-                    alignSelf: m.role === "user" ? "flex-end" : "flex-start",
-                    background: m.role === "user" ? theme.accent : theme.surface,
-                    color: m.role === "user" ? theme.accentText : theme.textMuted,
-                    border: m.role === "assistant" ? `1px solid ${theme.border}` : "none",
-                    borderRadius: 10, padding: "10px 14px", fontSize: 13, maxWidth: "85%", lineHeight: 1.5
-                  }}>{m.content}</div>
-                ))}
-                {chatLoading && <div style={{ alignSelf: "flex-start", color: theme.textDim, fontSize: 13 }}>Thinking...</div>}
-              </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendChat()} placeholder="Ask anything about this diagnosis..." style={{ flex: 1, background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 8, padding: "10px 12px", color: theme.text, fontSize: 14, outline: "none", fontFamily: "inherit" }} />
-                <button onClick={sendChat} disabled={!chatInput.trim() || chatLoading} style={{ background: theme.accent, color: theme.accentText, border: "none", borderRadius: 8, padding: "10px 16px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>→</button>
-              </div>
+              {tier === "free" ? (
+                <div style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 10, padding: "16px", textAlign: "center" }}>
+                  <div style={{ fontSize: 13, color: theme.textMuted, marginBottom: 12 }}>Follow-up chat is a Pro feature</div>
+                  <button onClick={() => navigate("/pricing")} style={{ background: theme.accent, color: theme.accentText, border: "none", borderRadius: 6, padding: "8px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Upgrade to Pro</button>
+                </div>
+              ) : (
+                <>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+                    {chatMessages.map((m, i) => (
+                      <div key={i} style={{
+                        alignSelf: m.role === "user" ? "flex-end" : "flex-start",
+                        background: m.role === "user" ? theme.accent : theme.surface,
+                        color: m.role === "user" ? theme.accentText : theme.textMuted,
+                        border: m.role === "assistant" ? `1px solid ${theme.border}` : "none",
+                        borderRadius: 10, padding: "10px 14px", fontSize: 13, maxWidth: "85%", lineHeight: 1.5
+                      }}>{m.content}</div>
+                    ))}
+                    {chatLoading && <div style={{ alignSelf: "flex-start", color: theme.textDim, fontSize: 13 }}>Thinking...</div>}
+                  </div>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendChat()} placeholder="Ask anything about this diagnosis..." style={{ flex: 1, background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 8, padding: "10px 12px", color: theme.text, fontSize: 14, outline: "none", fontFamily: "inherit" }} />
+                    <button onClick={sendChat} disabled={!chatInput.trim() || chatLoading} style={{ background: theme.accent, color: theme.accentText, border: "none", borderRadius: 8, padding: "10px 16px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>→</button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
