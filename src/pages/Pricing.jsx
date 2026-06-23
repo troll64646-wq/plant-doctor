@@ -10,8 +10,8 @@ const PLANS = [
 ];
 
 const LEMONSQUEEZY_URLS = {
-  pro: "https://YOUR_STORE.lemonsqueezy.com/checkout/buy/PRO_PRODUCT_ID",
-  expert: "https://YOUR_STORE.lemonsqueezy.com/checkout/buy/EXPERT_PRODUCT_ID",
+  pro: "https://plant-doctor.lemonsqueezy.com/checkout/buy/71d71e93-cf6a-4a4d-af83-efd24b166f39",
+  expert: "https://plant-doctor.lemonsqueezy.com/checkout/buy/a5e6c962-42b0-4ece-a0fd-a59863098a7b",
 };
 
 export default function Pricing() {
