@@ -4,9 +4,9 @@ import { useTheme } from "../context/ThemeContext";
 import HamburgerMenu from "../components/HamburgerMenu";
 
 const PLANS = [
-  { key: "free", name: "Free", price: "$0", period: "forever", features: ["3 diagnoses per month", "Photo + text input", "Full diagnosis report", "Treatment checklist"], cta: "Get started", highlight: false },
-  { key: "pro", name: "Pro", price: "$4.99", period: "per month", features: ["30 diagnoses per month", "Photo + text input", "Full diagnosis report", "Treatment checklist", "Diagnosis history", "Plant profiles"], cta: "Get Pro", highlight: true },
-  { key: "expert", name: "Expert", price: "$9.99", period: "per month", features: ["Unlimited diagnoses", "Everything in Pro", "Priority support", "Early access to new features"], cta: "Get Expert", highlight: false },
+  { key: "free", name: "Free", price: "$0", period: "forever", features: ["3 diagnoses per month", "Photo + text input", "Full diagnosis report", "Treatment checklist"], cta: "Get started", highlight: false, badge: null },
+  { key: "pro", name: "Pro", price: "$4.99", period: "per month", features: ["30 diagnoses per month", "Photo + text input", "Full diagnosis report", "Treatment checklist", "Diagnosis history", "Plant profiles", "Follow-up chat"], cta: "Get Pro", highlight: true, badge: "Most Popular" },
+  { key: "expert", name: "Expert", price: "$9.99", period: "per month", features: ["Unlimited diagnoses", "Everything in Pro", "Priority support", "Early access to new features"], cta: "Get Expert", highlight: false, badge: "Best Value" },
 ];
 
 const LEMONSQUEEZY_URLS = {
@@ -49,11 +49,17 @@ export default function Pricing() {
           {PLANS.map(plan => (
             <div key={plan.key} style={{
               background: plan.highlight ? theme.surface2 : theme.surface,
-              border: `1px solid ${plan.highlight ? theme.accent : theme.border}`,
+              border: `1px solid ${plan.highlight ? theme.accent : plan.key === "expert" ? theme.warning : theme.border}`,
               borderRadius: 16, padding: "28px 24px", position: "relative", display: "flex", flexDirection: "column"
             }}>
-              {plan.highlight && (
-                <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: theme.accent, color: theme.accentText, fontSize: 11, fontWeight: 700, padding: "3px 14px", borderRadius: 20, letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Most popular</div>
+              {plan.badge && (
+                <div style={{
+                  position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)",
+                  background: plan.key === "expert" ? theme.warning : theme.accent,
+                  color: theme.accentText, fontSize: 11, fontWeight: 700,
+                  padding: "3px 14px", borderRadius: 20, letterSpacing: "0.08em",
+                  textTransform: "uppercase", whiteSpace: "nowrap"
+                }}>{plan.badge}</div>
               )}
               {currentTier === plan.key && (
                 <div style={{ fontSize: 11, color: theme.accent, marginBottom: 8, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>✓ Current plan</div>
@@ -73,8 +79,8 @@ export default function Pricing() {
               <button onClick={() => handleCta(plan)} disabled={currentTier === plan.key} style={{
                 width: "100%", padding: "12px",
                 background: currentTier === plan.key ? "transparent" : plan.highlight ? theme.accent : "transparent",
-                color: currentTier === plan.key ? theme.textDim : plan.highlight ? theme.accentText : theme.accent,
-                border: `1px solid ${plan.highlight ? theme.accent : theme.border}`,
+                color: currentTier === plan.key ? theme.textDim : plan.highlight ? theme.accentText : plan.key === "expert" ? theme.warning : theme.accent,
+                border: `1px solid ${plan.highlight ? theme.accent : plan.key === "expert" ? theme.warning : theme.border}`,
                 borderRadius: 8, fontSize: 14, fontWeight: 600,
                 cursor: currentTier === plan.key ? "default" : "pointer", fontFamily: "inherit"
               }}>
